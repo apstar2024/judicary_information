@@ -1,166 +1,80 @@
-// import React, {Component, PropTypes} from 'react'
-// import TextField from 'material-ui/TextField';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme'
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// import Paper from 'material-ui/Paper';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import img from '../images/img1.jpg'
+import logo from '../images/logo.jpg'
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+//   MDBIcon,
+  MDBInput
+}
+from 'mdb-react-ui-kit';
 
-// import ReactTelephoneInput from 'react-telephone-input'
+const Login=()=> {
 
-// export default class signup extends Component {
-//   constructor(props) {
-//     super(props)
+  const [imageSrc, setImageSrc] = useState(img);
+  const [imageno,setimageno]=useState(1);
 
-//     this.state = {
-//       account: '',
-//       email: '',
-//       emailErrorText: '',
-//       password: '',
-//       confirmPassword: '',
-//       confirmPasswordErrorText: '',
-//       telNum: '',
-//     }
-//   }
+const loadImage = async () => {
+    if(imageno===9)
+      setimageno(1);
+    else    
+      setimageno(imageno+1);
+    console.log('load image is called')
+  
+    let imageName=`img${imageno}.jpg`;
+    const { default: imageSrc } = await import(`../images/${imageName}`);
+    setImageSrc(imageSrc);
+  };
+  useEffect(()=>{
+    console.log('useeffect is called')
+    const intervalId = setInterval(loadImage, 1000);
+    return () => clearInterval(intervalId);
+  },[imageSrc,loadImage])
+  return (
+    <MDBContainer className="my-2 my-container">
+      <MDBCard>
+        <MDBRow className='g-0'>
+          <MDBCol md='6'>
+            <MDBCardImage src={imageSrc} alt="login form" type="image/png" className='rounded-start w-100 imagecss'/>
+          </MDBCol>
 
-//   validateEmail(e) {
-//     // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-//     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//     return re.test(e);
-//   }
+          <MDBCol md='6'>
+            <MDBCardBody className='d-flex flex-column'>
 
-//   getStyle() {
-//     return {
-//       height: 600,
-//       width: 350,
-//       margin: 20,
-//       textAlign: 'center',
-//       display: 'inline-block',
-//     }
-//   }
+              <div className='d-flex flex-row mt-2'>
+                {/* <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }}/> */}
+                <img src={logo} alt="not found" type="image/png" className='logo_jis'/>
+                {/* <MDBCardImage src={logo} alt="login form" className='logo'/> */}
+                <span className="h1 fw-bold mb-0">Judiciary information</span>
+              </div>
 
-//   _onSubmit(e) {
-//     e.preventDefault()
+              <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
 
-//     console.log("_onSubmit")
-//     if (this.state.emailErrorText == '' && this.state.confirmPasswordErrorText == '') {
-//       console.log("_onSubmit: state=", this.state)
-//     } else {
-//       console.log("has error, unable to submit")
-//     }
-//   }
+                <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg"/>
+                <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
 
-//   _onReset() {
-//     console.log("_onReset")
-//     this.setState({
-//       account: '',
-//       email: '',
-//       emailErrorText: '',
-//       password: '',
-//       confirmPassword: '',
-//       confirmPasswordErrorText: '',
-//       telNum: '',
-//     })
-//   }
+              <MDBBtn className="mb-4 px-5" color='dark' size='lg'>Login</MDBBtn>
+              <a className="small text-muted" href="/">Forgot password?</a>
+              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="/" style={{color: '#393f81'}}>Register here</a></p>
 
-//   _handleAccountChange(e, val) {
-//     this.setState({account: val})
-//   }
+              <div className='d-flex flex-row justify-content-start'>
+                <a href="/" className="small text-muted me-1">Terms of use.</a>
+                <a href="/" className="small text-muted">Privacy policy</a>
+              </div>
 
-//   _handlePasswordChange(e, val) {
-//     this.setState({password: val})
-//   }
+            </MDBCardBody>
+          </MDBCol>
 
-//   _handleConfirmPasswordChange(e, val) {
-//     var errorText = ''
-//     if (val != this.state.password) {
-//       errorText = 'Passwords are not matched'
-//     }
-//     this.setState({confirmPassword: val, confirmPasswordErrorText: errorText})
-//   }
+        </MDBRow>
+      </MDBCard>
 
-//   _handleEmailChange(e, val) {
-//     var errorText = ''
-//     if (!this.validateEmail(val)) {
-//       errorText = "Email Format Error"
-//     }
-//     this.setState({emailErrorText: errorText, email: val})
-//   }
-
-//   _handleInputChange(telNumber, selectedCountry) {
-//     console.log('input changed. number: ', telNumber, 'selected country: ', selectedCountry);
-//   }
-
-//   _handleInputBlur(telNumber, selectedCountry) {
-//     console.log('Focus off the ReactTelephoneInput component. Tel number entered is: ', telNumber, ' selected country is: ', selectedCountry);
-//     this.setState({telNum: telNumber})
-//   }
-
-//   render() {
-//     return (
-//       <Paper style={this.getStyle()}>
-//         <p>Example of form validation built with React.</p>
-//         <form onSubmit={this._onSubmit.bind(this)}>
-
-
-//         <TextField
-//           value={this.state.account}
-//           onChange={this._handleAccountChange.bind(this)}
-//           hintText="Account"
-//           floatingLabelText="Account"
-//           floatingLabelFixed={true}
-//         />
-//         <br />
-
-
-//         <TextField
-//           value={this.state.password}
-//           onChange={this._handlePasswordChange.bind(this)}
-//           hintText="Password"
-//           floatingLabelText="Password"
-//           floatingLabelFixed={true}
-//           type="password"
-//         />
-//         <br />
-
-//         <TextField
-//           value={this.state.confirmPassword}
-//           errorText={this.state.confirmPasswordErrorText}
-//           onChange={this._handleConfirmPasswordChange.bind(this)}
-//           hintText="Confirmed Password"
-//           floatingLabelText="Confirmed Password"
-//           floatingLabelFixed={true}
-//           type="password"
-//         />
-//         <br />
-
-//         <TextField
-//           value={this.state.email}
-//           errorText={this.state.emailErrorText}
-//           onChange={this._handleEmailChange.bind(this)}
-//           hintText="Email"
-//           floatingLabelText="Email"
-//           floatingLabelFixed={true}
-//         />
-//         <br />
-
-
-//         <div>
-//         <ReactTelephoneInput
-//               flagsImagePath='static/images/flags.png'
-//               defaultCountry='id'
-//               onChange={this._handleInputChange.bind(this)}
-//               onBlur={this._handleInputBlur.bind(this)}
-//               preferredCountries={['sg', 'id', 'cn', 'tw']}
-//               />
-//         </div>
-//         <br />
-//         <br />
-//         <br />
-//         <div>
-//           <button type="submit">Submit</button>
-//           <button type="button" onClick={this._onReset.bind(this)}>Reset</button>
-//         </div>
-//         </form>
-//       </Paper>
-//     )
-//   }
-// }
+    </MDBContainer>
+  );
+}
+export default Login;
