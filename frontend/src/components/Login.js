@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import img from '../images/img1.jpg'
 import logo from '../images/logo.jpg'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   MDBBtn,
   MDBContainer,
@@ -13,35 +15,40 @@ import {
 //   MDBIcon,
   MDBInput
 }
+
 from 'mdb-react-ui-kit';
 
 const Login=()=> {
 
   const [imageSrc, setImageSrc] = useState(img);
   const [imageno,setimageno]=useState(1);
+  const Navigate=useNavigate();
 
 const loadImage = async () => {
     if(imageno===9)
       setimageno(1);
     else    
       setimageno(imageno+1);
-    console.log('load image is called')
+    // console.log('load image is called')
   
     let imageName=`img${imageno}.jpg`;
     const { default: imageSrc } = await import(`../images/${imageName}`);
     setImageSrc(imageSrc);
   };
   useEffect(()=>{
-    console.log('useeffect is called')
+    // console.log('useeffect is called')
     const intervalId = setInterval(loadImage, 1000);
     return () => clearInterval(intervalId);
   },[imageSrc,loadImage])
+  const gotoSignup=()=>{
+    Navigate('../Signup')
+  }
   return (
     <MDBContainer className="my-2 my-container">
       <MDBCard>
         <MDBRow className='g-0'>
           <MDBCol md='6'>
-            <MDBCardImage src={imageSrc} alt="login form" type="image/png" className='rounded-start w-100 imagecss'/>
+            <MDBCardImage src={imageSrc} alt="login form" type="image/png" className='rounded-start w-100 img_size'/>
           </MDBCol>
 
           <MDBCol md='6'>
@@ -61,7 +68,7 @@ const loadImage = async () => {
 
               <MDBBtn className="mb-4 px-5" color='dark' size='lg'>Login</MDBBtn>
               <a className="small text-muted" href="/">Forgot password?</a>
-              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="/" style={{color: '#393f81'}}>Register here</a></p>
+              <span className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <span onClick={gotoSignup} style={{cursor:'pointer', paddingLeft:'5px'}}>Create New</span></span> 
 
               <div className='d-flex flex-row justify-content-start'>
                 <a href="/" className="small text-muted me-1">Terms of use.</a>
