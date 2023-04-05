@@ -1,21 +1,20 @@
  class User {
-    constructor(username, id) {
+    constructor(username, password) {
       this.username = username;
-      this.id = id;
+      this.password = password;
     }
     
     browseCase(caseId) {
       // code to browse a case
     }
-    
     seeSchedule() {
       // code to see user's schedule
     }
   }
   
  class Judge extends User {
-    constructor(username, id) {
-      super(username, id);
+    constructor(username, password) {
+      super(username, password);
     }
     
     browsePastCases() {
@@ -24,8 +23,8 @@
   }
   
    class Lawyer extends User {
-    constructor(username, id) {
-      super(username, id);
+    constructor(username, password) {
+      super(username, password);
     }
     
     browsePastCases() {
@@ -41,8 +40,8 @@
   }
   
    class Registrar extends User {
-    constructor(username, id) {
-      super(username, id);
+    constructor(username, password) {
+      super(username, password);
     }
     
     addNewCase() {

@@ -77,6 +77,17 @@ function Signup() {
               <label htmlFor="female">Female</label>
               <input type="radio" name="gender" id="other" />
               <label htmlFor="other">Other</label>
+            </div>
+          </div>
+          <div className="sign-gender-details-box">
+            <span className="sign-gender-title">Login As</span>
+            <div className="sign-gender-category">
+              <input type="radio" name="gender" id="judge" />
+              <label htmlFor="male">Judge</label>
+              <input type="radio" name="gender" id="lawer" />
+              <label htmlFor="female">Lawyer</label>
+              <input type="radio" name="gender" id="registrar" />
+              <label htmlFor="other">Registrar</label>
               <p style={{color:'blue', fontSize:'18px',float:'right',cursor:'pointer'}} onClick={gotoLogin}>Login</p>
             </div>
           </div>

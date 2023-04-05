@@ -1,14 +1,17 @@
 const express=require('express');
 const connectdb=require('./database/connectdb');
 const { default: mongoose } = require('mongoose');
+const {insertUser}=require('./Functions/curd')
+const userModel=require('./models/userModel')
 
-const { User, Judge, Lawyer, Registrar } =require('./modules/User');
+// const { User, Judge, Lawyer, Registrar } =require('./modules/User');
 
 
+const app=express();
 // middlewares
+app.use(express.json());
 
 //constants
-const app=express();
 const dbName="JIS";
 const uri="mongodb://0.0.0.0:27017"
 const port=5000;
@@ -26,6 +29,14 @@ app.get('/',async(req,res)=>{
     await connectdb(uri,dbName);
     let result=mongoose.connection.collection('user');
     result=await result.find({}).toArray();
+    res.send(result);
+})
+
+app.post('/Signup',async (req,res)=>{
+    await connectdb(uri,dbName);
+    // console.log(req.body)
+    let result=await insertUser(req,res,userModel);
+    // console.log(result);
     res.send(result);
 })
 
