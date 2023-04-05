@@ -22,14 +22,17 @@ const uobj={
     gender:{
         type:String,
         required:true
+    },
+    email:{
+        typeof:String
+    },
+    mobileNo:{
+        type:String,
+        required:true,
+        unique:true
     }
 }
 
 const userScm=new mongoose.Schema(uobj);
 
 module.exports=mongoose.model('users',userScm);
-
-// let User=mongoose.model('users',userScm);
-
-// User.collection.dropIndex("email_1");
-// User.collection.createIndex({ email: 1 });

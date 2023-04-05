@@ -3,6 +3,7 @@ const connectdb=require('./database/connectdb');
 const { default: mongoose } = require('mongoose');
 const {insertUser}=require('./Functions/curd')
 const userModel=require('./models/userModel')
+const cors = require('cors');
 
 // const { User, Judge, Lawyer, Registrar } =require('./modules/User');
 
@@ -10,6 +11,7 @@ const userModel=require('./models/userModel')
 const app=express();
 // middlewares
 app.use(express.json());
+app.use(cors())
 
 //constants
 const dbName="JIS";

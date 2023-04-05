@@ -5,8 +5,9 @@
         password:req.body.password,
         userType:req.body.userType,
         gender:req.body.gender,
-        fullName:req.body.fullName
-
+        fullName:req.body.fullName,
+        email:req.body.email,
+        mobileNo:req.body.mobileNo
     });
     let result =await user.save();
 
