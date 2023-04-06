@@ -1,3 +1,4 @@
+const mongoose =require('mongoose');
 
  async function insertUser(req,res,model){
     const user=new model({
@@ -10,10 +11,47 @@
         mobileNo:req.body.mobileNo
     });
     let result =await user.save();
-
-    console.log(user);
+    res.send(result);
+    // console.log(user);
     return result;
 }
+// funtion to update user using usernmae
+async function update(req,res,model){
+    const uid=req.params.userName;
+    // console.log(req.params);
+    let result=await model.updateOne({userName:uid},
+        {mobileNo:'1231231231'})
+    if(result.acknowledged)
+        res.send('data updated successfully')
+    else    
+        res.send({result:'unable to update data try latter'})
+    return result;
+}
+// function to fetch data using user name
+async function getUser(req,res,model,collectionName){
+    let result=mongoose.connection.collection(collectionName);
+    result=await result.find({userName:req.params.userName}).toArray();
+    console.log(result);
+    if(result)
+        res.send(result);
+    else    
+        res.send({result:'no data found'});
+}
+
+// function to delete user using user name 
+async function deleteUser(req,res,model){
+    const uid=req.params.userName;
+    let result=await model.deleteOne({userName:uid});
+    if(result.acknowledged){
+        res.send({result:'user deleted successfuly',
+    deleteCount:result.deletedCount })
+    }
+    else{
+        res.send({result:'unable to delete user '})
+    }
+    return result;
+}
+
 module.exports = {
-    insertUser
+    insertUser,update,deleteUser,getUser
   };

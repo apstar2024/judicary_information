@@ -58,10 +58,10 @@ const loadImage = async () => {
                 {/* <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }}/> */}
                 <img src={logo} alt="not found" type="image/png" className='logo_jis'/>
                 {/* <MDBCardImage src={logo} alt="login form" className='logo'/> */}
-                <span className="h1 fw-bold mb-0">Judiciary information</span>
+                <span className="h1 fw-bold mb-0">Department Of Justice</span>
               </div>
 
-              <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
+              <h5 className="fw-normal my-4 pb-3" style={{letterSpacing:'1px'}}>Sign into your account</h5>
 
                 <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg"/>
                 <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>

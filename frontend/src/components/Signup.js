@@ -39,12 +39,12 @@ function Signup() {
     // console.log(e.target.id)
     if (e.target.name === "gender") setGender(e.target.id);
     else setType(e.target.id);
-    console.log(gender, type);
+    // console.log(gender, type);
   };
 
   const sendData = async (e) => {
     e.preventDefault();
-    console.log("clicked on send data button");
+    // console.log("clicked on send data button");
     let data = {
       userName: userName,
       password: password,

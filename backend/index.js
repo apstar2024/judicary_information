@@ -1,7 +1,7 @@
 const express=require('express');
 const connectdb=require('./database/connectdb');
 const { default: mongoose } = require('mongoose');
-const {insertUser}=require('./Functions/curd')
+const {insertUser,update,deleteUser,getUser}=require('./Functions/curd')
 const userModel=require('./models/userModel')
 const cors = require('cors');
 
@@ -29,17 +29,32 @@ console.log(result);
 
 app.get('/',async(req,res)=>{
     await connectdb(uri,dbName);
-    let result=mongoose.connection.collection('user');
+    let result=mongoose.connection.collection('users');
     result=await result.find({}).toArray();
     res.send(result);
 })
 
 app.post('/Signup',async (req,res)=>{
     await connectdb(uri,dbName);
-    // console.log(req.body)
-    let result=await insertUser(req,res,userModel);
-    // console.log(result);
-    res.send(result);
+    await insertUser(req,res,userModel);
+})
+
+// to update user details
+app.put('/update/:userName',async (req,res)=>{
+    await connectdb(uri,dbName);
+    await update(req,res,userModel);
+})
+
+// to fetch data using user id
+app.get('/users/:userName',async(req,res)=>{
+    await connectdb(uri,dbName);
+    await getUser(req,res,userModel,'users');
+})
+
+// to delete data using user name
+app.delete('/delete/:userName',async (req,res)=>{
+    await connectdb(uri,dbName);
+    await deleteUser(req,res,userModel);
 })
 
 app.listen(port,(err)=>{
