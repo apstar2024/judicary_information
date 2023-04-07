@@ -64,7 +64,7 @@ function Signup() {
       confirmPassword &&
       mobileNo
     ) {
-      if (password == confirmPassword) {
+      if (password === confirmPassword) {
         let result = await fetch("http://localhost:5000/Signup", {
           method: "post",
           headers: {

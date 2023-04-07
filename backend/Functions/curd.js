@@ -38,6 +38,19 @@ async function getUser(req,res,model,collectionName){
         res.send({result:'no data found'});
 }
 
+// function to handle login
+async function userLogin(req,res,collectionName){
+    let result=mongoose.connection.collection(collectionName);
+    // myDatabase.myCollection.find({ $and: [ { field1: value1 }, { field2: value2 } ] })
+    result=await result.find({ $and: [ { userName: req.body.userName }, { password: req.body.password } ]}).toArray();
+    console.log(result);
+    if(result.length>=1){
+        res.send({login:true, userType:result[0].userType,userName:result[0].userName});
+    }
+    else    
+        res.send({login:false });
+}
+
 // function to delete user using user name 
 async function deleteUser(req,res,model){
     const uid=req.params.userName;
@@ -53,5 +66,5 @@ async function deleteUser(req,res,model){
 }
 
 module.exports = {
-    insertUser,update,deleteUser,getUser
+    insertUser,update,deleteUser,getUser,userLogin
   };

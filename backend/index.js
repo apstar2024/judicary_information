@@ -1,7 +1,7 @@
 const express=require('express');
 const connectdb=require('./database/connectdb');
 const { default: mongoose } = require('mongoose');
-const {insertUser,update,deleteUser,getUser}=require('./Functions/curd')
+const {insertUser,update,deleteUser,getUser, userLogin}=require('./Functions/curd')
 const userModel=require('./models/userModel')
 const cors = require('cors');
 
@@ -37,6 +37,13 @@ app.get('/',async(req,res)=>{
 app.post('/Signup',async (req,res)=>{
     await connectdb(uri,dbName);
     await insertUser(req,res,userModel);
+})
+
+// handle login
+app.post('/Login',async(req,res)=>{
+    // res.send({result:'no data found'});
+    await connectdb(uri,dbName);
+    await userLogin(req,res,'users')
 })
 
 // to update user details
