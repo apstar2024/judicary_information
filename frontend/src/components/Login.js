@@ -45,7 +45,7 @@ const Login = () => {
     if (auth) {
         Navigate("/")
     }
-}, [])
+}, [Navigate])
 
   // handle login
   const handleLogin = async (e) => {
@@ -65,7 +65,7 @@ const Login = () => {
         const result = await response.json();
         // console.log(result);
         if (result.login) {
-          alert("login successfully");
+          // alert("login successfully");
           localStorage.setItem("user", JSON.stringify(result));
           Navigate("/");
         } else {

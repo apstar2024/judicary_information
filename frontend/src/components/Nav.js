@@ -1,19 +1,21 @@
 import React from "react";
 import img from "../images/logo.jpg";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Nav = () => {
   let login = false;
-  let log = "";
-  const Navigate=useNavigate();
+  let log = {};
+  let userType = "";
+  const Navigate = useNavigate();
   if (localStorage.getItem("user")) {
     log = JSON.parse(localStorage.getItem("user"));
     login = log.login;
+    userType = log.userType;
   }
   const logout = () => {
     localStorage.clear();
-    Navigate('/Login')
-}
+    Navigate("/Login");
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-primary text-white">
@@ -34,7 +36,7 @@ const Nav = () => {
             <ul className="navbar-nav">
               {login && (
                 <>
-                  <li className="nav-item">
+                  <li className="nav-item ms-4">
                     <Link
                       to="/"
                       className="nav-link active text-white"
@@ -43,39 +45,133 @@ const Nav = () => {
                       Home
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item ms-4">
                     <Link
-                      to="/Services"
                       className="nav-link text-white"
-                      href="/"
+                      to="/"
                     >
-                      Services
-                    </Link>
+                      Past_Cases
+                    </Link> 
                   </li>
-                  <li className="nav-item">
-                    <Link to="/About" className="nav-link text-white" href="/">
-                      About
-                    </Link>
+                  {userType === "lawyer" && (
+                    <li className="nav-item ms-4">
+                      <Link to="/Payment" className="nav-link text-white">
+                        Payment
+                      </Link>
+                    </li>
+                  )}
+                </>
+              )}
+              {userType === "registrar" && (
+                <>
+                  <li className="nav-item ms-4">
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-primary">
+                        Add
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <span className="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <Link className="dropdown-item" to="#">
+                            New Case
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="#">
+                            New User
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </li>
-                  <li className="nav-item">
-                    <Link to="/Pricing" className="nav-link text-white">
-                      Pricing
-                    </Link>
+
+                  <li className="nav-item ms-4">
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-primary">
+                        Update
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <span className="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <Link className="dropdown-item" to="#">
+                            Case
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="#">
+                            User
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li className="nav-item ms-4">
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-primary">
+                        Schedule
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <span className="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <Link className="dropdown-item" to="#">
+                            Assign Case
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="#">
+                            Assign User
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="#">
+                            Remove
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </li>
                 </>
               )}
-              <li className="nav-item">
+              {login && (
+                <li className="nav-item ms-4">
+                  <Link to="/About" className="nav-link text-white" href="/">
+                    About
+                  </Link>
+                </li>
+              )}
+
+              <li className="nav-item ms-4">
                 <Link
                   to="/Login"
                   className="nav-link text-white mx-3"
-                  onClick={
-                    logout
-                  }
+                  onClick={logout}
                 >
                   {login ? "Logout" : "Login"}
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item ms-4">
                 <Link to="/Signup" className="nav-link text-white mx-3">
                   {login ? "" : "Signup"}
                 </Link>

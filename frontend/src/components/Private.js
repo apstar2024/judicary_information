@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-const PrivateComponent = () => {
+const Private= () => {
   let Login = false;
   let log = {};
   if (localStorage.getItem("user")) {
@@ -11,4 +11,4 @@ const PrivateComponent = () => {
   return Login ? <Outlet /> : <Navigate to="Login" />;
 };
 
-export default PrivateComponent;
+export default React.memo(Private);
