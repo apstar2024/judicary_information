@@ -12,7 +12,6 @@ const mongoose =require('mongoose');
     });
     let result =await user.save();
     res.send(result);
-    // console.log(user);
     return result;
 }
 // funtion to update user using usernmae

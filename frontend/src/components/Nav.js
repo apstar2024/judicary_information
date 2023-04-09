@@ -34,24 +34,21 @@ const Nav = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
+              <li className="nav-item ms-4">
+                <Link
+                  to="/"
+                  className="nav-link active text-white"
+                  aria-current="page"
+                >
+                  Home
+                </Link>
+              </li>
               {login && (
                 <>
                   <li className="nav-item ms-4">
-                    <Link
-                      to="/"
-                      className="nav-link active text-white"
-                      aria-current="page"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li className="nav-item ms-4">
-                    <Link
-                      className="nav-link text-white"
-                      to="/"
-                    >
+                    <Link className="nav-link text-white" to="/">
                       Past_Cases
-                    </Link> 
+                    </Link>
                   </li>
                   {userType === "lawyer" && (
                     <li className="nav-item ms-4">
@@ -79,7 +76,7 @@ const Nav = () => {
                       </button>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="#">
+                          <Link className="dropdown-item" to="/registrar/addnewcase">
                             New Case
                           </Link>
                         </li>
@@ -156,7 +153,11 @@ const Nav = () => {
               )}
               {login && (
                 <li className="nav-item ms-4">
-                  <Link to="/About" className="nav-link text-white" href="/">
+                  <Link
+                    to="/About"
+                    className="nav-link text-white"
+                    href="/About"
+                  >
                     About
                   </Link>
                 </li>

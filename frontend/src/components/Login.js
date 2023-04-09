@@ -65,7 +65,6 @@ const Login = () => {
         const result = await response.json();
         // console.log(result);
         if (result.login) {
-          // alert("login successfully");
           localStorage.setItem("user", JSON.stringify(result));
           Navigate("/");
         } else {

@@ -58,3 +58,10 @@
   .img_size{
     height: 87vh;
   }
+  .mx_img{
+    max-height: 75vh;
+  }
+  /* *body{
+    width: 100vw;
+    max-width: 100vw;
+  } */

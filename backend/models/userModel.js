@@ -1,5 +1,5 @@
 const { default: mongoose } = require('mongoose');
-const mongodb=require('mongoose');
+// const mongodb=require('mongoose');
 
 const uobj={
     userName:{
@@ -35,4 +35,4 @@ const uobj={
 
 const userScm=new mongoose.Schema(uobj);
 
-module.exports=mongoose.model('users',userScm);
+module.exports=mongoose.model('user',userScm);

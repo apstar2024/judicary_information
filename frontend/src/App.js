@@ -5,7 +5,10 @@ import Signup from "./components/Signup";
 import Privatejudge from "./components/Privatejudge";
 import Privatelawyer from "./components/Privatelawyer";
 import Privateregistrar from "./components/privateregistrar";
-// import Footer from "./components/Footer";
+import About from "./components/About";
+import Home from "./components/Home";
+import Footer from "./components/Footer";
+import AddCase from "./components/AddCase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect,useState } from "react";
 
@@ -35,8 +38,7 @@ function App() {
    <BrowserRouter>
      <Nav />
      <Routes>
-       <Route path="/" element={<h1>Welcome to the Home page {userType}</h1>} />
-       <Route path="/about" element={<h1>About page</h1>} />
+       <Route path="/About" element={<About/>} />
        <Route path="/services" element={<h1>Services page</h1>} />
 
        {userType === "judge" ? (
@@ -55,12 +57,15 @@ function App() {
        {userType === "registrar" ? (
          <Route element={<Privateregistrar />}>
            <Route path="/registrar" element={<h1>Registrar Dashboard</h1>} />
+           <Route path="/registrar/addnewcase" element={<AddCase/>} />
+
          </Route>
        ) : null}
-
+       <Route path="/" element={<Home/>} />
        <Route path="/login" element={<Login onLogin={updateUserType}/>} />
        <Route path="/signup" element={<Signup />} />
      </Routes>
+       <Footer/>
    </BrowserRouter>
  );
 }
