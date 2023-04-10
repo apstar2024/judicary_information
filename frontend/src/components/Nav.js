@@ -46,12 +46,12 @@ const Nav = () => {
               {login && (
                 <>
                   <li className="nav-item ms-4">
-                    <Link className="nav-link text-white" to="/">
+                    <Link className="nav-link text-white" to="/pastcases">
                       Past_Cases
                     </Link>
                   </li>
                   {userType === "lawyer" && (
-                    <li className="nav-item ms-4">
+                    <li className="nav-item ms-4" >
                       <Link to="/Payment" className="nav-link text-white">
                         Payment
                       </Link>
@@ -104,7 +104,7 @@ const Nav = () => {
                       </button>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="#">
+                          <Link className="dropdown-item" to="/registrar/updatecase">
                             Case
                           </Link>
                         </li>

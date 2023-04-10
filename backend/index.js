@@ -11,7 +11,7 @@ const {
 const userModel = require("./models/userModel");
 const Case = require("./models/caseModel");
 const cors = require("cors");
-const { addCase } = require("./Functions/case");
+// const { addCase } = require("./Functions/case");
 
 // const { User, Judge, Lawyer, Registrar } =require('./modules/User');
 
@@ -61,7 +61,7 @@ app.put("/update/:userName", async (req, res) => {
 // to fetch data using user id
 app.get("/users/:userName", async (req, res) => {
   await connectdb(uri, dbName);
-  await getUser(req, res, userModel, "users");
+  await getUser(req, res, "users");
 });
 
 // to delete data using user name
@@ -105,6 +105,48 @@ app.post("/registrar/addcase", async (req, res) => {
     console.log('user not found')
   }
 });
+
+// to get case info using cin number
+app.post('/registrar/getdetails',async (req,res)=>{
+  let cin=req.body.CIN;
+  await connectdb(uri, dbName);
+  let result=await Case.findOne({CIN:cin});
+  if(result){
+    res.send(result);
+  }
+  else{
+    res.send({error:'enter valid CIN'})
+  }
+})
+
+// to update case
+app.put('/registrar/updatecase',async (req,res)=>{
+  // res.send('working fine');
+  await connectdb(uri, dbName);
+  let [lawyer]=req.body.lawyers;
+  let result = await Case.updateOne(
+    { CIN: req.body.CIN },
+    { $set: { 
+        defendantName: req.body.defendantName, 
+        defendantAddress: req.body.defendantAddress, 
+        crimeType: req.body.crimeType,
+        dateCommitted: req.body.dateCommitted,
+        locationCommitted: req.body.locationCommitted,
+        arrestingOfficer: req.body.arrestingOfficer,
+        judge: req.body.judge,
+        lawyers: lawyer,
+        status: req.body.status,
+        victim:req.body.victim
+      } 
+    }
+)
+if(result.acknowledged){
+  res.send({result:'data updated successfully'});
+}
+else
+  res.send({error:'Check entered detailes, unable to update'});
+  console.log(req.body.lawyers)
+})
 
 
 app.listen(port, (err) => {

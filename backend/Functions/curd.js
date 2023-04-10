@@ -27,7 +27,7 @@ async function update(req,res,model){
     return result;
 }
 // function to fetch data using user name
-async function getUser(req,res,model,collectionName){
+async function getUser(req,res,collectionName){
     let result=mongoose.connection.collection(collectionName);
     result=await result.find({userName:req.params.userName}).toArray();
     console.log(result);

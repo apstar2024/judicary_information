@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Alert, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const AddCase = () => {
+const UpdateCase = () => {
   const [defendantName, setDefendantName] = useState("");
   const [defendantAddress, setDefendantAddress] = useState("");
   const [crimeType, setCrimeType] = useState("");
@@ -16,9 +16,10 @@ const AddCase = () => {
   const [victim, setVictim] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-const navigate=useNavigate()
+  const [searchItem,setSearchItem]=useState("");
+//   const navigate = useNavigate();
 
-const handleSubmit = async(event) => {
+  const handleUpdate = async (event) => {
     event.preventDefault();
 
     const data = {
@@ -36,8 +37,8 @@ const handleSubmit = async(event) => {
     };
 
     try {
-      const result = await fetch("http://localhost:5000/registrar/addcase", {
-        method: "POST",
+      const result = await fetch("http://localhost:5000/registrar/updatecase", {
+        method: "put",
         headers: {
           "Content-Type": "application/json",
         },
@@ -60,12 +61,11 @@ const handleSubmit = async(event) => {
         setLawyers("");
         setCIN("");
         setVictim("");
-        setDateCommitted("");setDefendantName("");
+        setDateCommitted("");
+        setDefendantName("");
         setCrimeType("");
         // navigate("/registrar/addnewcase");
-        
       }
-
     } catch (error) {
       console.error(error);
       setErrorMessage("Something went wrong!");
@@ -73,18 +73,92 @@ const handleSubmit = async(event) => {
     }
   };
 
+  const handleSearch=async()=>{
+    console.log('clicked on handle search')
+    let data={CIN:searchItem};
+    let res=await fetch("http://localhost:5000/registrar/getdetails",{
+        method:'post',
+        headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data)
+    })
+    res=await res.json();
+    if(res.error){
+        alert(res.error);
+    }
+    else{
+        setDefendantName(res.defendantName);
+        setDefendantAddress(res.defendantAddress);
+        setArrestingOfficer(res.arrestingOfficer);
+        setJudge(res.judge);
+        setLocationCommitted(res.locationCommitted);
+        setLawyers(res.lawyers);
+        setCIN(res.CIN);
+        setVictim(res.victim);
+        setDateCommitted(res.dateCommitted);
+        console.log(res);
+        setCrimeType(res.crimeType); 
+        setStatus(res.status);
+    }
+    // console.log(res);
+  }
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <h1 className="text-center mx-auto mt-3">Add New Case</h1>
+          <h1 className="text-center mx-auto mt-3">Update Case</h1>
         </div>
       </div>
-      {errorMessage && <Alert variant="danger">{errorMessage} <button type="button" className="btn-close float-end" aria-label="Close" onClick={()=>{setErrorMessage("");}}></button></Alert>}
-      {successMessage && <Alert variant="success">{successMessage} <button type="button" className="btn-close float-end" aria-label="Close" onClick={()=>{setSuccessMessage("");}}></button></Alert>}
-      <Form onSubmit={handleSubmit}>
-      {/* <Form > */}
+      {/* <div className="row"> */}
+      <div className="row justify-content-end">
+        <div className="col-md-3 mt-2">
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search"
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+              onChange={(e)=>{setSearchItem(e.target.value);}}
+            />
+            
+            <button className="btn btn-primary" type="button" onClick={handleSearch}>
+              <span>search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* </div> */}
+      {errorMessage && (
+        <Alert variant="danger">
+          {errorMessage}{" "}
+          <button
+            type="button"
+            className="btn-close float-end"
+            aria-label="Close"
+            onClick={() => {
+              setErrorMessage("");
+            }}
+          ></button>
+        </Alert>
+      )}
+      {successMessage && (
+        <Alert variant="success">
+          {successMessage}{" "}
+          <button
+            type="button"
+            className="btn-close float-end"
+            aria-label="Close"
+            onClick={() => {
+              setSuccessMessage("");
+            }}
+          ></button>
+        </Alert>
+      )}
+      <Form onSubmit={handleUpdate}>
+        {/* <Form > */}
         <Row>
           <Col md={6}>
             <Form.Group controlId="defendantName">
@@ -214,11 +288,11 @@ const handleSubmit = async(event) => {
           </Col>
         </Row>
         <Button variant="primary" type="submit" className="mb-3">
-          Submit
+          Update
         </Button>
       </Form>
     </div>
   );
 };
 
-export default AddCase;
+export default UpdateCase;

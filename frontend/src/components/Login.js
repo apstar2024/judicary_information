@@ -146,10 +146,10 @@ const Login = () => {
               </span>
 
               <div className="d-flex flex-row justify-content-start">
-                <Link to="/" className="small text-muted me-1">
+                <Link to="/termsofuse" className="small text-muted me-1">
                   Terms of use.
                 </Link>
-                <Link to="/" className="small text-muted">
+                <Link to="/privacypolicy" className="small text-muted">
                   Privacy policy
                 </Link>
               </div>
