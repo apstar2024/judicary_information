@@ -15,6 +15,7 @@ import SearchPastCase from "./components/SearchPastCase";
 import CaseDetails from "./components/CaseDetails"
 import TermsOfUse from "./components/TermsOfUse";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import ScheduleForm from "./components/ScheduleForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="/registrar/updatecase" element={<UpdateCase />} />
         <Route path="/pastcases" element={<SearchPastCase/>} />
         <Route path="/pastcases/casedetails" element={<CaseDetails/>} />
+        <Route path="/registrar/schedulecase" element={<ScheduleForm/>} />
         <Route path="/termsofuse" element={<TermsOfUse/>} />
         <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
         <Route path="/" element={<Home />} />

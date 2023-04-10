@@ -10,7 +10,9 @@ const {
 } = require("./Functions/curd");
 const userModel = require("./models/userModel");
 const Case = require("./models/caseModel");
+const Schedule = require("./models/scheduleModel");
 const cors = require("cors");
+const scheduleModel = require("./models/scheduleModel");
 // const { addCase } = require("./Functions/case");
 
 // const { User, Judge, Lawyer, Registrar } =require('./modules/User');
@@ -148,6 +150,25 @@ else
   console.log(req.body.lawyers)
 })
 
+// to schedule case
+app.post('/registrar/schedulecase/:cin', async (req, res) => {
+  await connectdb(uri, dbName);
+  const cin = req.params.cin;
+  try {
+    const caseData = await Case.findOne({ CIN: cin });
+    if (!caseData) {
+      return res.status(404).json({ error: 'Case not found' });
+    }
+    // return res.json(caseData);
+    let result=new scheduleModel(req.body);
+    result=await result.save();
+    console.log(result);
+    res.send({result:"schedule Added successfully"});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.listen(port, (err) => {
   if (err) throw err;

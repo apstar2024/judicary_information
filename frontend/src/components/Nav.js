@@ -51,7 +51,7 @@ const Nav = () => {
                     </Link>
                   </li>
                   {userType === "lawyer" && (
-                    <li className="nav-item ms-4" >
+                    <li className="nav-item ms-4">
                       <Link to="/Payment" className="nav-link text-white">
                         Payment
                       </Link>
@@ -76,12 +76,15 @@ const Nav = () => {
                       </button>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="/registrar/addnewcase">
+                          <Link
+                            className="dropdown-item"
+                            to="/registrar/addnewcase"
+                          >
                             New Case
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="#">
+                          <Link className="dropdown-item" to="/Signup">
                             New User
                           </Link>
                         </li>
@@ -104,7 +107,10 @@ const Nav = () => {
                       </button>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="/registrar/updatecase">
+                          <Link
+                            className="dropdown-item"
+                            to="/registrar/updatecase"
+                          >
                             Case
                           </Link>
                         </li>
@@ -132,15 +138,15 @@ const Nav = () => {
                       </button>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="#">
-                            Assign Case
+                          <Link className="dropdown-item" to="/registrar/schedulecase">
+                             Add
                           </Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link className="dropdown-item" to="#">
                             Assign User
                           </Link>
-                        </li>
+                        </li> */}
                         <li>
                           <Link className="dropdown-item" to="#">
                             Remove
